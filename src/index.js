@@ -10,12 +10,6 @@ app.use(
   })
 )
 
-
-app.get('/', (req, res) => {
-    res.json({ info: 'Node.js, Express, and Postgres API' })
-  })
-
-
 app.use('api/todos', require('./routes/route'))
 
 app.listen(port, () => {

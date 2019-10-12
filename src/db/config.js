@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const options = {
   query: (e) => {
     console.log(e.query)
@@ -7,7 +9,7 @@ const options = {
 const pgp = require('pg-promise')(options);
 let db
 try {
-    db = pgp(`postgres://postgres:superMe@localhost:5432/TodoMVC`)
+    db = pgp(`postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}`)
 } catch (e) {
   console.error('Failed to start application, DB init.', e)
   process.exit(1)

@@ -8,7 +8,7 @@ router.get('/', async (req, res) => {
         const todoList = await todoService.getTodos()
         res.send(todoList)
     } catch (error) {
-        console.log(error),
+        console.log(error, 'THat sucks'),
         res.status(500).json({error})
     }
 })
