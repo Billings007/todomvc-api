@@ -1,5 +1,5 @@
 // Import the database
-const db = require('../db/config');
+const db = require('../db/config').db;
 
 
 async function getTodos() {
