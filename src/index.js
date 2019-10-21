@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
   })
 
 
-app.use('api/todos', require('./routes/route'))
+app.use('/api/todos', require('./routes/route'))
 
 app.listen(port, () => {
   console.log(`App running on port ${port}.`)
