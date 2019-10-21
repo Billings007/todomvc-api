@@ -1,70 +1,49 @@
 const express = require('express');
 const router = express.Router();
-const model = require('../models/model')
+const todoService = require('../models/service')
 
 
-router.get('/', (req, res) => {
-    model.getTodos()
-    .then(todoList => {
-        res.json({
-            message: 'Success',
-            data: todoList
-        });
-    })
-    .catch(err => {
-        console.log(err);
-        res.status(500).json({err});
-    });
-});
-
-router.post('/:id/:todo', (req, res) => {
-    //const entry = service.newTodo(req.params.id, req.params.todo)
-    //.then(res.send(entry))
-    model.newTodo(req.params.id, req.params.todo)
-    .then(todo => {
-        res.json({
-            data: todo
-        });
-        res.status(201),
-        res.send(data)
+router.get('/', async (req, res) => {
+    try {
+        const todoList = await todoService.getTodos()
+        res.send(todoList)
+    } catch (error) {
+        console.log(error),
+        res.status(500).json({error})
     }
-    )
-    .catch(err => {
-        console.log(err);
-        res.status(500).json({err});
-    });
-});
+})
 
-router.delete('/:id', (req, res) => {
-    //const entry = service.deleteTodo(req.params.id, req.params.todo)
-    //.then(res.send(entry))
-    model.deleteTodo(req.params.id)
-    .then(todo => {
-        res.json({
-            data: todo
-        });
-        res.status(201),
-        res.send(data)
+
+router.post('/:id/:todo', async (req, res) => {
+    try {
+        const newTodoId = await todoService.newTodo(req.params.id, req.params.todo)
+        res.send(newTodoId)
+    } catch (error) {
+        console.log(error),
+        res.status(500).json({error})
     }
-    )
-    .catch(err => {
-        console.log(err);
-        res.status(500).json({err});
-    });
-});
+})
 
-router.get('/:id', (req, res) => {
-    model.findById(req.params.id)
-    .then(todo => {
-      res.json({
-        message: "Success",
-        data: todo
-      });
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({err});
-    });
-  });
+router.delete('/:id', async (req, res) => {
+    try {
+        const deletedResponse = await todoService.deleteTodo(req.params.id)
+        res.send(deletedResponse)
+    } catch (error) {
+        console.log(error),
+        res.status(500).json({error})
+    }
+})
 
-  module.exports = router;
+
+
+router.get('/:id', async (req, res) => {
+    try{
+        const todoId = await todoService.findTodo(req.params.id)
+        res.send(todoId)
+    } catch (error) {
+        console.log(error),
+        res.status(500).json({error})
+    }
+})
+
+  module.exports = router

@@ -1,44 +1,43 @@
 // Import the database
 const db = require('../db/config');
 
-const model = {};
 
-model.getTodos = () => {
-  return db.query(
-    `SELECT * FROM todoitems`
-  );
-};
+async function getTodos() {
+  const data = await db.query(
+    'SELECT * FROM todoitems'
+  )
+  return data
+}
 
-model.newTodo = (id, todo) => {
-  return db.query(
-    `
-      INSERT INTO todoitems (id, todo)
-      VALUES($1, '$2')
-    `,
+async function newTodo(id, todoText) {
+  const data = await db.query(
+    'INSERT INTO todoitems (id, todo) VALUES($1, $2)',
     [
       id,
-      todo
+      todoText
     ]
-  );
-};
+  )
+  return data
+}
 
-model.findTodo = (id) => {
-  return db.oneOrNone(
-    ` 
-      SELECT * FROM todoitems
-      WHERE id = $1
-    `,
+async function findTodo(id) {
+  const data = await db.oneOrNone(
+    'SELECT * FROM todotiems WHERE id = $1',
     [id]
-  );
-};
+  )
+  return data
+}
 
-model.deleteTodo = (id) => {
-  return db.query(
-    `
-      DELETE FROM todoitems 
-      WHERE id = $1
-    `,
+async function deleteTodo(id) {
+  const data = await db.query(
+      'DELETE FROM todoitems WHERE id = $1',
     [id]
-  );
-};
-module.exports = model;
+  )
+  return data
+}
+module.exports = {
+  getTodos,
+  newTodo,
+  findTodo,
+  deleteTodo
+}

@@ -1,30 +1,30 @@
 //Couldn't figure out why I couldn't GET and made this thinking it might help
-
-
 const todoModel = require('../models/model')
 
-const todoService = {};
 
-todoService.getTodos = () => {
+async function getTodos() {
     const todos = todoModel.getTodos()
     return todos
-};
+}
 
-todoService.newTodo = (id, todo) => {
+async function newTodo(id, todo) {
     const newTodoResponse = todoModel.newTodo(id, todo)
     return newTodoResponse[0]
-};
+}
 
-todoService.deleteTodo = (id) => {
+async function deleteTodo(id) {
     const deleteTodoResponse = todoModel.deleteTodo(id)
     return deleteTodoResponse[0]
-};
+}
 
-todoService.findTodo = (id) => {
+async function findTodo(id) {
     const todo = todoModel.findTodo(id)
     return todo
 }
 
-module.exports = todoService;
-
-
+module.exports = {
+    getTodos,
+    newTodo,
+    deleteTodo,
+    findTodo
+}
