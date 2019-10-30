@@ -7,8 +7,8 @@ async function getTodos() {
     return todos
 }
 
-async function newTodo(id, todo) {
-    const newTodoResponse = todoModel.newTodo(id, todo)
+async function newTodo(todo) {
+    const newTodoResponse = todoModel.newTodo(todo)
     return newTodoResponse[0]
 }
 

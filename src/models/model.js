@@ -9,20 +9,17 @@ async function getTodos() {
   return data
 }
 
-async function newTodo(id, todoText) {
+async function newTodo(todoText) {
   const data = await db.query(
-    'INSERT INTO todoitems (id, todo) VALUES($1, $2)',
-    [
-      id,
-      todoText
-    ]
+    'INSERT INTO todoitems (todo) VALUES($1)',
+    [todoText]
   )
   return data
 }
 
 async function findTodo(id) {
   const data = await db.oneOrNone(
-    'SELECT * FROM todotiems WHERE id = $1',
+    'SELECT * FROM todoitems WHERE id = $1',
     [id]
   )
   return data

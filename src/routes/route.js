@@ -14,9 +14,9 @@ router.get('/', async (req, res) => {
 })
 
 
-router.post('/:id/:todo', async (req, res) => {
+router.post('/:todo', async (req, res) => {
     try {
-        const newTodoId = await todoService.newTodo(req.params.id, req.params.todo)
+        const newTodoId = await todoService.newTodo(req.params.todo)
         res.send(newTodoId)
     } catch (error) {
         console.log(error),
